@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    tools:context=".HelplineFragment">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_marginBottom="25dp"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="For current status of bed availability, Dial:"
+        android:textColor="#000000" />
+
+    <Button
+        android:layout_gravity="center"
+        android:fontFamily="@font/varela_round"
+        android:padding="15dp"
+        android:id="@+id/helpline"
+        android:textSize="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1077"/>
+
+    </LinearLayout>
+</FrameLayout>

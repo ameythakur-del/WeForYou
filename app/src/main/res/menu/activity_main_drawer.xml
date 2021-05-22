@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_local_hospital_24"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_summary"
+            android:icon="@drawable/ic_baseline_single_bed_24"
+            android:title="Total Beds" />
+
+        <item
+            android:id="@+id/nav_helpline"
+            android:icon="@drawable/ic_baseline_local_phone_24"
+            android:title="Helpline"/>
+
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@mipmap/logopng"
+            android:title="About us" />
+
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_baseline_contact_phone_24"
+            android:title="Contact us" />
+    </group>
+</menu>
