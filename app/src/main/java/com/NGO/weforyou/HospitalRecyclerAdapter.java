@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -266,6 +268,3 @@ public class HospitalRecyclerAdapter extends RecyclerView.Adapter<HospitalRecycl
         }
     }
 }
-
-
-

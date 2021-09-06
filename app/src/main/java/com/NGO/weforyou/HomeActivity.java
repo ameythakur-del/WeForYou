@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue().toString().equals("1")) {
-                            startActivity(new Intent(HomeActivity.this, Main2Activity.class));
+                            startActivity(new Intent(HomeActivity.this, Options.class));
                             finish();
                         }
                         else {
