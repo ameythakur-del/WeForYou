@@ -13,16 +13,13 @@
         android:theme="@style/Theme.WeForYou" >
         <activity
             android:name=".Options"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity
+            android:theme="@style/Theme.WeForYou.NoActionBar"
             android:name=".urban"
-            android:exported="true" >
+            android:exported="true">
         </activity>
         <activity android:name=".Update" />
         <activity
@@ -31,7 +28,13 @@
             android:theme="@style/Theme.WeForYou.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/homeActivity" />
+            android:theme="@style/homeActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

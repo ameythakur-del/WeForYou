@@ -1,38 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Options">
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/hospital"
-        app:backgroundTint="#20c997"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:includeFontPadding="false"
-        android:text="Hospitals"
-        android:textAllCaps="false"
-        app:cornerRadius="20dp"
-        android:layout_marginTop="400dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="50dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/Serve"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginBottom="10dp"
-        android:includeFontPadding="false"
-        android:text="We Serve"
-        android:textAllCaps="false"
-        app:backgroundTint="#20c997"
-        app:cornerRadius="20dp"
-        android:textSize="50dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</RelativeLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            app:strokeWidth="1dp"
+            app:strokeColor="#0F0F0F"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/hospital">
+
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/hospital_beds"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/varela_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Covid Beds"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/varela_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Availability"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:clickable="true"
+            app:strokeWidth="1dp"
+            android:layout_marginLeft="10dp"
+            app:strokeColor="#0F0F0F"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/weServe">
+
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/home_services"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/varela_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="We Serve"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,35 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/WeForYou/app/src/main/res/font/lato_thin.xml" value="0.19166666666666668" />
-        <entry key="..\:/WeForYou/app/src/main/res/font/varela_round.xml" value="0.19166666666666668" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/activity_main2.xml" value="0.264" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/activity_options.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/activity_servehome.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/activity_urban.xml" value="0.264" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/content_serve_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/fragment_gallery.xml" value="0.264" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/fragment_helpline.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/fragment_slideshow.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/hospital.xml" value="0.264" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/item_urbanrecycler.xml" value="0.264" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/nav_header_main.xml" value="0.4" />
-        <entry key="..\:/WeForYou/app/src/main/res/layout/summary.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/menu/activity_main_drawer.xml" value="0.3776041666666667" />
-        <entry key="..\:/WeForYou/app/src/main/res/menu/activity_serve_drawe.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/menu/activity_serve_drawer.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/menu/main2.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/menu/main_activity2.xml" value="0.25416666666666665" />
-        <entry key="..\:/WeForYou/app/src/main/res/menu/serve.xml" value="0.25416666666666665" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

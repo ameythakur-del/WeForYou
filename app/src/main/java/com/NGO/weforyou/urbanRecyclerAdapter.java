@@ -49,8 +49,7 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
         final urbanmodel urbanmodel = urbanmodelList.get(position);
 
         viewHolder.name.setText(urbanmodel.getName());
-        viewHolder.area.setText(urbanmodel.getArea());
-        viewHolder.phoneNunber.setText(urbanmodel.getPhoneNumber());
+        viewHolder.area.setText("Serving Area : " + urbanmodel.getArea());
         viewHolder.specialization.setText(urbanmodel.getSpecialization());
     }
 
@@ -96,8 +95,8 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
     };
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView name, area,phoneNunber,specialization;
-        ImageButton call;
+        private TextView name, area,specialization;
+        Button call;
 
 
         public ViewHolder(@NonNull View itemView, Context ctx) {
@@ -106,7 +105,6 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
             name = itemView.findViewById(R.id.name);
             area = itemView.findViewById(R.id.area);
             call = itemView.findViewById(R.id.call);
-            phoneNunber = itemView.findViewById(R.id.phoneNumber);
             specialization = itemView.findViewById(R.id.specialization);
             call.setOnClickListener(this);
         }
