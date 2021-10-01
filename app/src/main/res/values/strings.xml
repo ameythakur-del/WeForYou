@@ -16,4 +16,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_serve">serve</string>
+    <string-array name="taluka">
+        <item>Select</item>
+        <item>Devgad</item>
+        <item>Kankavli</item>
+        <item>Malvan</item>
+        <item>Vengurla</item>
+        <item>Sawantwadi</item>
+        <item>Waibhavwadi</item>
+        <item>Kudal</item>
+    </string-array>
 </resources>
