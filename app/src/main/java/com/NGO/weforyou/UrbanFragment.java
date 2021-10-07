@@ -1,12 +1,14 @@
 package com.NGO.weforyou;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActionBar;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -20,6 +22,7 @@ import android.widget.ProgressBar;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +39,7 @@ public class UrbanFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private EditText searchView;
-    DatabaseReference reference;
+    DatabaseReference reference,chipref;
     public List<urbanmodel> urbanmodels;
     ChipGroup chipGroup;
     String spec;
@@ -52,6 +55,7 @@ public class UrbanFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.view);
         reference = FirebaseDatabase.getInstance().getReference().child("Form");
+        chipref=FirebaseDatabase.getInstance().getReference().child("Chips");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         recyclerView.setHasFixedSize(true);
@@ -82,6 +86,44 @@ public class UrbanFragment extends Fragment {
 
             }
         });
+
+        chipref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String newchip=snapshot.getValue().toString();
+                Chip chip = new Chip(getActivity());
+                chip.setText(newchip);
+                chip.setChipBackgroundColorResource(R.color.chipback);
+                chip.setCheckable(true);
+                chip.setChipStrokeColorResource(R.color.stroke);
+                chip.setChipStrokeWidth(2.5F);
+                chip.setTextColor(getResources().getColor(R.color.black));
+                chipGroup.addView(chip);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 
         chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
@@ -119,7 +161,8 @@ public class UrbanFragment extends Fragment {
 
                     else {
                         Query query;
-                        if (spec.equals("Electrician") || spec.equals("Barber") || spec.equals("Painter") || spec.equals("Mechanic") || spec.equals("Home Cleaning") || spec.equals("Pest Control") || spec.equals("Massage")) {
+                        //if (spec.equals("Electrician") || spec.equals("Barber") || spec.equals("Painter") || spec.equals("Mechanic") || spec.equals("Home Cleaning") || spec.equals("Pest Control") || spec.equals("Massage")) {
+                        if (!spec.equals(null)){
                             query = reference.orderByChild("Specialization").equalTo(spec);
                             query.addValueEventListener(new ValueEventListener() {
                                 @Override

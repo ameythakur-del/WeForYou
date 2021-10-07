@@ -42,11 +42,13 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:hint="Enter Your Full Name"
                         app:hintTextColor="@color/main_colour"
+                        android:fontFamily="@font/varela_round"
                         >
 
                         <!--this is the actual edit text which takes the input-->
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/name"
+                            android:fontFamily="@font/varela_round"
                             android:textColor="@color/main_colour"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -69,6 +71,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:hint="Mobile No."
                         app:hintTextColor="@color/main_colour"
+                        android:fontFamily="@font/varela_round"
                         app:prefixText="+91">
 
                         <!--this is the actual edit text which takes the input-->
@@ -77,6 +80,7 @@
                             android:textColor="@color/main_colour"
                             android:inputType="phone"
                             android:layout_width="match_parent"
+                            android:fontFamily="@font/varela_round"
                             android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -85,6 +89,7 @@
 
                 <TextView
                     android:textColor="#98AFC7"
+                    android:fontFamily="@font/varela_round"
                     android:layout_marginTop="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,12 +104,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.button.MaterialButton
+            android:fontFamily="@font/varela_round"
             android:id="@+id/sendotp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Send OTP"
             android:textAllCaps="true"
-            android:backgroundTint="@color/button_colour"
+            android:backgroundTint="#20c997"
             android:layout_marginTop="16dp"
             android:textSize="20dp"
             android:padding="15dp"

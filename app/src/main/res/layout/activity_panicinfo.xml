@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:fontFamily="@font/varela_round"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxStrokeColor="@color/main_colour"
@@ -20,6 +21,7 @@
         app:hintTextColor="@color/main_colour">
         <!--this is the actual edit text which takes the input-->
         <com.google.android.material.textfield.TextInputEditText
+            android:fontFamily="@font/varela_round"
             android:id="@+id/name"
             android:textColor="#000000"
             android:inputType="textPersonName"
@@ -28,6 +30,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:fontFamily="@font/varela_round"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxStrokeColor="@color/main_colour"
@@ -41,6 +44,7 @@
 
         <!--this is the actual edit text which takes the input-->
         <com.google.android.material.textfield.TextInputEditText
+            android:fontFamily="@font/varela_round"
             android:id="@+id/phoneNumber"
             android:textColor="#000000"
             android:inputType="phone"
@@ -49,6 +53,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
+        android:fontFamily="@font/varela_round"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxStrokeColor="@color/main_colour"
@@ -62,6 +67,7 @@
 
         <!--this is the actual edit text which takes the input-->
         <com.google.android.material.textfield.TextInputEditText
+            android:fontFamily="@font/varela_round"
             android:id="@+id/gphoneNum"
             android:inputType="phone"
             android:layout_width="match_parent"
@@ -78,7 +84,7 @@
         android:background="@drawable/border"
         >
         <Spinner
-
+            android:fontFamily="@font/varela_round"
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -87,6 +93,7 @@
             />
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
+        android:fontFamily="@font/varela_round"
         android:id="@+id/button"
         app:backgroundTint="#FF0000"
         android:layout_width="wrap_content"
@@ -99,11 +106,13 @@
         app:cornerRadius="20dp"
         android:visibility="gone"/>
     <com.google.android.material.button.MaterialButton
+        android:fontFamily="@font/varela_round"
         android:id="@+id/savedetails"
         app:backgroundTint="#20c997"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:includeFontPadding="false"
         android:text="Save Details"

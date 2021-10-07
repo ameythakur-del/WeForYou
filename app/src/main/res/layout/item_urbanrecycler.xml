@@ -100,4 +100,12 @@
 
 
 </LinearLayout>
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logopng"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="right">
+
+    </ImageView>
 </androidx.cardview.widget.CardView>

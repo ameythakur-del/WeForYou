@@ -8,4 +8,5 @@
     <style name="weServe" parent="Theme.WeForYou">
         <item name="title">We Serve</item>
     </style>
+
 </resources>

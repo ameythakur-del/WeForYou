@@ -44,13 +44,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.net.Inet4Address;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class panicinfo extends AppCompatActivity {
     TextInputEditText name, phoneNumber, gphoneNumber;
-    DatabaseReference users;
+    DatabaseReference users,panicmsg;
     FirebaseUser mUser;
     String sphone,sname,messsage,sgphoneNumber;
     double latitude,longitude;
@@ -66,6 +67,7 @@ public class panicinfo extends AppCompatActivity {
         button = findViewById(R.id.button);
         savedeatils=findViewById(R.id.savedetails);
         users = FirebaseDatabase.getInstance().getReference("Panic mode Users");
+        panicmsg=FirebaseDatabase.getInstance().getReference("Panic Messages Sent");
         name = findViewById(R.id.name);
         phoneNumber = findViewById(R.id.phoneNumber);
         gphoneNumber = findViewById(R.id.gphoneNum);
@@ -73,7 +75,7 @@ public class panicinfo extends AppCompatActivity {
         sphone = mUser.getPhoneNumber();
 
 
-        //ActivityCompat.requestPermissions(panicinfo.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(panicinfo.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
 
 
         staticSpinner = (Spinner) findViewById(R.id.spinner);
@@ -85,25 +87,17 @@ public class panicinfo extends AppCompatActivity {
 
 
 
-        users.child(sphone).addListenerForSingleValueEvent(new ValueEventListener() {
+        users.child(sphone).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     sname = snapshot.child("Name").getValue().toString();
                     name.setText(sname);
                     phoneNumber.setText(sphone);
-                    if (snapshot.child("GuardianPhone").exists()){
+                    if (snapshot.child("GuardianPhone").exists() &&snapshot.child("Taluka").exists() ){
                         button.setVisibility(View.VISIBLE);
                         savedeatils.setVisibility(View.GONE);
                         gphoneNumber.setText(snapshot.child("GuardianPhone").getValue().toString());
-                    }
-                    else {
-                        savedeatils.setVisibility(View.VISIBLE);
-                        button.setVisibility(View.GONE);
-                    }
-                    if (snapshot.child("Taluka").exists()){
-                        button.setVisibility(View.VISIBLE);
-                        savedeatils.setVisibility(View.GONE);
                         String tal=snapshot.child("Taluka").getValue().toString();
                         int spinnerpos=staticAdapter.getPosition(tal);
                         staticSpinner.setSelection(spinnerpos);
@@ -125,6 +119,7 @@ public class panicinfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sgphoneNumber=gphoneNumber.getText().toString();
+                final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 if (TextUtils.isEmpty(sname)) {
                     name.setError( "Name is required!");
                     Toast.makeText(panicinfo.this, "Please enter your Name", Toast.LENGTH_SHORT).show();
@@ -147,12 +142,22 @@ public class panicinfo extends AppCompatActivity {
                 if (staticSpinner.getSelectedItem().toString().equals("Select")){
                     Toast.makeText(panicinfo.this, "Please select Taluka", Toast.LENGTH_SHORT).show();
                 }
+                if (ActivityCompat.checkSelfPermission(panicinfo.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(panicinfo.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
+                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    buildAlertMessageNoGps();
+                }
+                if (ActivityCompat.checkSelfPermission(panicinfo.this,Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                    //ActivityCompat.requestPermissions(panicinfo.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+                    ActivityCompat.requestPermissions(panicinfo.this, new String[] { Manifest.permission.SEND_SMS}, 44);
+                }
                 else {
-
+                    statusCheck();
+                    getlocation();
                     AlertDialog.Builder ab = new AlertDialog.Builder(panicinfo.this);
-                    ab.setMessage("By CLicking yes,your information will be sent to police").setPositiveButton("Yes", dialogClickListener)
+                    ab.setMessage("By Clicking yes,your information will be sent to police").setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
-
                 }
 
                 //FirebaseAuth.getInstance().signOut();
@@ -211,7 +216,7 @@ public class panicinfo extends AppCompatActivity {
             ActivityCompat.requestPermissions(panicinfo.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
 
-        //statusCheck();
+        statusCheck();
 
 
     }
@@ -243,8 +248,8 @@ public class panicinfo extends AppCompatActivity {
                     try {
                         Geocoder geocoder=new Geocoder(panicinfo.this, Locale.getDefault());
                         List<Address> addresses=geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        latitude=addresses.get(0).getLatitude();
-                        longitude=addresses.get(0).getLongitude();
+                        latitude=location.getLatitude();
+                        longitude=location.getLongitude();
                         street=addresses.get(0).getSubLocality();
                         localty=addresses.get(0).getLocality();
                     } catch (IOException e) {
@@ -295,15 +300,20 @@ public class panicinfo extends AppCompatActivity {
                     link="https://maps.google.com/?q="+latitude+","+longitude;
                     Taluka= staticSpinner.getSelectedItem().toString();
                     messsage="Name:"+sname +"\n"+
-                            "PhoneNo.:"+sphone+"\n"+
-                            "ContactNo.:"+sgphoneNumber+"\n"+
-                            "Link:"+link+"\n"+"Area:"+street+","+localty+"\n"+Taluka;
+                            "PhoneNo:"+sphone+"\n"+
+                            "ContactNo:"+sgphoneNumber+"\n"+
+                            link+"\n"+"Area:"+street+","+localty+"\n"+Taluka;
 
                     try {
+                        final String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
                         SmsManager smsManager=SmsManager.getDefault();
                         smsManager.sendTextMessage("8600608273",null,messsage
                                 ,null,null);
                         Toast.makeText(getApplicationContext(),"Message Sent",Toast.LENGTH_LONG).show();
+                        HashMap hashMap=new HashMap();
+                        hashMap.put("message",messsage);
+                        panicmsg.child(sphone+","+currentDateTimeString).updateChildren(hashMap);
+
                     }catch (Exception e)
                     {
                         Log.d(e.getMessage(), "SMS error ");
@@ -318,19 +328,4 @@ public class panicinfo extends AppCompatActivity {
         }
     };
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //statusCheck();
-        //find();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode==PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(panicinfo.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
-    }
 }

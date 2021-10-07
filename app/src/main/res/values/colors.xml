@@ -14,4 +14,6 @@
     <color name="black_overlay">#66000000</color>
     <color name="button_colour">#509605</color>
     <color name="main_colour">#1D3C78</color>
+    <color name="chipback">#FFFFFF</color>
+    <color name="stroke">#20c997</color>
 </resources>

@@ -7,137 +7,147 @@
     tools:context=".Options">
 
     <LinearLayout
-        android:gravity="center"
+        android:id="@+id/lin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="70dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/emergency"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/hospital"
             android:layout_width="175dp"
             android:layout_height="175dp"
             android:layout_marginRight="10dp"
             android:clickable="true"
-            app:strokeWidth="1dp"
-            app:strokeColor="#0F0F0F"
             app:cardCornerRadius="10dp"
-            android:id="@+id/hospital">
+            app:strokeColor="#0F0F0F"
+            app:strokeWidth="1dp">
 
 
             <LinearLayout
-                android:layout_margin="10dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/hospital_beds"/>
+                    android:src="@drawable/hospital_beds" />
 
                 <TextView
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/varela_round"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/varela_round"
                     android:text="Covid Beds"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/varela_round"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/varela_round"
                     android:text="Availability"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/weServe"
             android:layout_width="175dp"
             android:layout_height="175dp"
-            android:clickable="true"
-            app:strokeWidth="1dp"
             android:layout_marginLeft="10dp"
-            app:strokeColor="#0F0F0F"
+            android:clickable="true"
             app:cardCornerRadius="10dp"
-            android:id="@+id/weServe">
+            app:strokeColor="#0F0F0F"
+            app:strokeWidth="1dp">
 
 
             <LinearLayout
-                android:layout_margin="10dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/home_services"/>
+                    android:src="@drawable/home_services" />
 
                 <TextView
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/varela_round"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/varela_round"
                     android:text="We Serve"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:layout_marginRight="10dp"
-        android:clickable="true"
-        app:strokeWidth="1dp"
-        app:strokeColor="#0F0F0F"
-        app:cardCornerRadius="10dp"
         android:id="@+id/emergency"
-        >
+        android:layout_width="175dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="154dp"
+        android:clickable="true"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lin"
+        app:strokeColor="#0F0F0F"
+        app:strokeWidth="1dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/hospital_beds"/>
+                android:src="@drawable/emergencyicon" />
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:fontFamily="@font/varela_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
                 android:text="Emergency"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:fontFamily="@font/varela_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
                 android:text=""
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -80,6 +80,14 @@ public class OTPActivity extends AppCompatActivity {
             }
         };
         sendOTP();
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(OTPActivity.this,Emergencylogin.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
