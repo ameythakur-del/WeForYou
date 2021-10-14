@@ -28,7 +28,9 @@
             android:clickable="true"
             app:cardCornerRadius="10dp"
             app:strokeColor="#0F0F0F"
-            app:strokeWidth="1dp">
+            app:strokeWidth="1dp"
+            android:visibility="gone"
+            >
 
 
             <LinearLayout
@@ -61,6 +63,49 @@
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/emergency"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:clickable="true"
+            app:cardCornerRadius="10dp"
+            app:strokeColor="#0F0F0F"
+            app:strokeWidth="1dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="70dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.52">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/emergencyicon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Emergency"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -103,54 +148,7 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/emergency"
-        android:layout_width="175dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="154dp"
-        android:clickable="true"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lin"
-        app:strokeColor="#0F0F0F"
-        app:strokeWidth="1dp"
-        tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/emergencyicon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/varela_round"
-                android:text="Emergency"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/varela_round"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

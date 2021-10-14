@@ -17,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -42,9 +44,10 @@ public class UrbanFragment extends Fragment {
     DatabaseReference reference,chipref;
     public List<urbanmodel> urbanmodels;
     ChipGroup chipGroup;
-    String spec;
+    String spec,city;
     Timer timer;
     private Handler mHandler;
+    Spinner staticSpinner;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +66,14 @@ public class UrbanFragment extends Fragment {
         chipGroup = root.findViewById(R.id.chipGroup);
 
         ProgressBar progressBar = root.findViewById(R.id.progress);
+
+        staticSpinner =root.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(getActivity(), R.array.taluka,
+                        android.R.layout.simple_spinner_item);
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        staticSpinner.setAdapter(staticAdapter);
+        city=staticSpinner.getSelectedItem().toString();
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

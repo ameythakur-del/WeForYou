@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/drawable/border.xml" value="0.22314814814814815" />
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_emergencylogin.xml" value="0.264" />
-        <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_options.xml" value="0.176" />
+        <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_options.xml" value="0.264" />
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_otpactivity.xml" value="0.264" />
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_panicinfo.xml" value="0.264" />
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_update.xml" value="0.25416666666666665" />
-        <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/fragment_urban.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/activity_urban.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/fragment_urban.xml" value="0.264" />
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/hospital.xml" value="0.25416666666666665" />
         <entry key="..\:/Android Projects/WeForYou/app/src/main/res/layout/item_urbanrecycler.xml" value="0.264" />
       </map>

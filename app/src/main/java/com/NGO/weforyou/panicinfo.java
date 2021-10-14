@@ -2,7 +2,9 @@ package com.NGO.weforyou;
 
 import static androidx.core.content.PermissionChecker.PERMISSION_DENIED;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,8 +19,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.audiofx.Equalizer;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -53,13 +59,14 @@ public class panicinfo extends AppCompatActivity {
     TextInputEditText name, phoneNumber, gphoneNumber;
     DatabaseReference users,panicmsg;
     FirebaseUser mUser;
-    String sphone,sname,messsage,sgphoneNumber;
+    String sphone,sname,messsage,sgphoneNumber,fname,fphone,fgphone,ftaluka,imei;
     double latitude,longitude;
     Button button,savedeatils;
     FusedLocationProviderClient mFusedLocationClient;
     String localty,street,Taluka,link;
     Spinner staticSpinner;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,7 @@ public class panicinfo extends AppCompatActivity {
                         android.R.layout.simple_spinner_item);
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         staticSpinner.setAdapter(staticAdapter);
+
 
 
 
@@ -155,6 +163,10 @@ public class panicinfo extends AppCompatActivity {
                 else {
                     statusCheck();
                     getlocation();
+                    fphone=phoneNumber.getText().toString();
+                    fgphone=gphoneNumber.getText().toString();
+                    fname=name.getText().toString();
+                    ftaluka=staticSpinner.getSelectedItem().toString();
                     AlertDialog.Builder ab = new AlertDialog.Builder(panicinfo.this);
                     ab.setMessage("By Clicking yes,your information will be sent to police").setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
@@ -299,10 +311,10 @@ public class panicinfo extends AppCompatActivity {
                     //Do your Yes progress
                     link="https://maps.google.com/?q="+latitude+","+longitude;
                     Taluka= staticSpinner.getSelectedItem().toString();
-                    messsage="Name:"+sname +"\n"+
-                            "PhoneNo:"+sphone+"\n"+
-                            "ContactNo:"+sgphoneNumber+"\n"+
-                            link+"\n"+"Area:"+street+","+localty+"\n"+Taluka;
+                    messsage="Name:"+fname +"\n"+
+                            "PhoneNo:"+fphone+"\n"+
+                            "ContactNo:"+fgphone+"\n"+
+                            link+"\n"+"Area:"+street+","+localty+"\n"+ftaluka;
 
                     try {
                         final String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
@@ -313,6 +325,13 @@ public class panicinfo extends AppCompatActivity {
                         HashMap hashMap=new HashMap();
                         hashMap.put("message",messsage);
                         panicmsg.child(sphone+","+currentDateTimeString).updateChildren(hashMap);
+                        HashMap hashMap1=new HashMap();
+                        hashMap1.put("Taluka",ftaluka);
+                        hashMap1.put("GuardianPhone",fgphone);
+                        hashMap1.put("Name",fname);
+                        hashMap1.put("phoneNumber",fphone);
+                        users.child(sphone).updateChildren(hashMap1);
+
 
                     }catch (Exception e)
                     {

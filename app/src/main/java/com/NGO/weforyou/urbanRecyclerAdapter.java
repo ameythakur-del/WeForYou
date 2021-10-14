@@ -125,13 +125,15 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
                             String a=snapshot.child("count").getValue().toString();
                             int c=Integer.parseInt(a);
                             c=c+1;
+                            String scount=String.valueOf(c);
                             HashMap hashMap=new HashMap();
-                            hashMap.put("count",c);
+                            hashMap.put("count",scount);
                             reference.updateChildren(hashMap);
                         }
                         else {
+                            String one="1";
                             HashMap hashMap=new HashMap();
-                            hashMap.put("count",1);
+                            hashMap.put("count",one);
                             reference.updateChildren(hashMap);
 
                         }
