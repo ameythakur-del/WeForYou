@@ -34,24 +34,13 @@ public class HomeActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue().toString().equals("1")) {
-                            startActivity(new Intent(HomeActivity.this, Options.class));
-                            finish();
-                        }
-                        else {
-                            startActivity(new Intent(HomeActivity.this, Update.class));
-                            finish();
-                        }
-                    }
+                startActivity(new Intent(HomeActivity.this, Options.class));
+                finish();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                        //else {
+                        //    startActivity(new Intent(HomeActivity.this, Update.class));
+                        //    finish();
+                        //}
                 }
         }, 3000);
     }

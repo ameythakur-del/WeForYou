@@ -61,6 +61,9 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
     public Filter getFilter() {
         return UrbanFilter;
     }
+    public Filter getCityfilter() {
+        return cityfilter;
+    }
 
     private Filter UrbanFilter = new Filter() {
         @Override
@@ -93,6 +96,34 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
             notifyDataSetChanged();
         }
     };
+    private Filter cityfilter=new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<urbanmodel> filteredList=new ArrayList<>();
+            if(charSequence.equals("Select")){
+                filteredList.addAll(urbanmodelList);
+            }
+            else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (urbanmodel urbanmodel : urbanmodelList){
+                    if (urbanmodel.getArea().toLowerCase().equals(filterPattern)){
+                        filteredList.add(urbanmodel);
+                    }
+                }
+            }
+            FilterResults results= new FilterResults();
+            results.values=filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            urbanmodelList.clear();
+            urbanmodelList.addAll((List)filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView name, area,specialization;

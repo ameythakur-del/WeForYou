@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -73,7 +75,7 @@ public class UrbanFragment extends Fragment {
                         android.R.layout.simple_spinner_item);
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         staticSpinner.setAdapter(staticAdapter);
-        city=staticSpinner.getSelectedItem().toString();
+        //city=staticSpinner.getSelectedItem().toString();
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -221,9 +223,6 @@ public class UrbanFragment extends Fragment {
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                     }
-
-
-
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         timer = new Timer();
@@ -246,6 +245,30 @@ public class UrbanFragment extends Fragment {
 
                     }
                 });
+                staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        city=staticAdapter.getItem(i).toString();
+                        timer=new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                (getActivity()).runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        urbanRecyclerAdapter.getCityfilter().filter(city);
+                                        recyclerView.setAdapter(urbanRecyclerAdapter);
+                                    }
+                                });
+                            }
+                        }, 1);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
             }
 
             @Override
@@ -253,6 +276,8 @@ public class UrbanFragment extends Fragment {
 
             }
         });
+
+
         return root;
     }
 

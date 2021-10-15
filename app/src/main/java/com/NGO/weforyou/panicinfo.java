@@ -20,6 +20,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.audiofx.Equalizer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -93,6 +95,19 @@ public class panicinfo extends AppCompatActivity {
         staticSpinner.setAdapter(staticAdapter);
 
 
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else{
+            connected = false;
+            button.setVisibility(View.VISIBLE);
+        }
+
+
 
 
         users.child(sphone).addValueEventListener(new ValueEventListener() {
@@ -128,7 +143,7 @@ public class panicinfo extends AppCompatActivity {
             public void onClick(View view) {
                 sgphoneNumber=gphoneNumber.getText().toString();
                 final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                if (TextUtils.isEmpty(sname)) {
+                if (TextUtils.isEmpty(phoneNumber.getText().toString())) {
                     name.setError( "Name is required!");
                     Toast.makeText(panicinfo.this, "Please enter your Name", Toast.LENGTH_SHORT).show();
                     return;
@@ -181,7 +196,7 @@ public class panicinfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sgphoneNumber=gphoneNumber.getText().toString();
-                if (TextUtils.isEmpty(sname)) {
+                if (TextUtils.isEmpty(phoneNumber.getText().toString())) {
                     name.setError( "Name is required!");
                     Toast.makeText(panicinfo.this, "Please enter your Name", Toast.LENGTH_SHORT).show();
                     return;
