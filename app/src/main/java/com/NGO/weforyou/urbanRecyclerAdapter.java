@@ -1,7 +1,11 @@
 package com.NGO.weforyou;
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +35,8 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
 
     public urbanRecyclerAdapter(Context context, List<urbanmodel> urbanmodels) {
         this.urbanmodels = urbanmodels;
-        urbanmodelList = new ArrayList<>(urbanmodels);
+        this.urbanmodelList = urbanmodels;
         this.context =context;
-
     }
 
     @NonNull
@@ -55,7 +58,7 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
 
     @Override
     public int getItemCount() {
-        return urbanmodelList.size();
+        return urbanmodels.size();
     }
 
     public Filter getFilter() {
@@ -123,6 +126,37 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
             notifyDataSetChanged();
         }
     };
+
+    public void filterList(String city) {
+        if(city.equals("Select Taluka")){
+            urbanmodels = urbanmodelList;
+        }
+        else {
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                if (item.getArea().equals(city)) {
+                    urbanmodels.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void chipfilter(String spec) {
+        if(spec.equals("All")){
+            urbanmodels = urbanmodelList;
+        }
+        else {
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                if (item.getSpecialization().equals(spec)) {
+                    urbanmodels.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

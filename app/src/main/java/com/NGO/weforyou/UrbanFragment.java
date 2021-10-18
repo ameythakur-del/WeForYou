@@ -1,5 +1,7 @@
 package com.NGO.weforyou;
 
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -40,7 +43,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class UrbanFragment extends Fragment {
-
+    private urbanRecyclerAdapter adapter;
     private RecyclerView recyclerView;
     private EditText searchView;
     DatabaseReference reference,chipref;
@@ -75,7 +78,6 @@ public class UrbanFragment extends Fragment {
                         android.R.layout.simple_spinner_item);
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         staticSpinner.setAdapter(staticAdapter);
-        //city=staticSpinner.getSelectedItem().toString();
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,11 +89,29 @@ public class UrbanFragment extends Fragment {
                         urbanmodels.add(urbanmodel);
                     }
                 }
-                urbanRecyclerAdapter urbanRecyclerAdapter = new urbanRecyclerAdapter(getActivity(), urbanmodels);
+                adapter = new urbanRecyclerAdapter(getActivity(), urbanmodels);
 
                 progressBar.setVisibility(View.INVISIBLE);
-                recyclerView.setAdapter(urbanRecyclerAdapter);
-                urbanRecyclerAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+
+
+                staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        city=staticAdapter.getItem(i).toString();
+                        if (city!=null){
+                            adapter.filterList(city);
+
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
             }
 
             @Override
@@ -144,79 +164,18 @@ public class UrbanFragment extends Fragment {
 
                 Chip chip = chipGroup.findViewById(i);
 
-                if(chip != null){
+
+                if(chip != null) {
                     spec = chip.getText().toString();
-
-                    if(spec.equals("All")){
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                urbanmodels = new ArrayList<urbanmodel>();
-                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                    {
-                                        urbanmodel urbanmodel = dataSnapshot1.getValue(urbanmodel.class);
-                                        urbanmodels.add(urbanmodel);
-                                    }
-                                }
-                                urbanRecyclerAdapter urbanRecyclerAdapter = new urbanRecyclerAdapter(getActivity(), urbanmodels);
-
-                                progressBar.setVisibility(View.INVISIBLE);
-                                recyclerView.setAdapter(urbanRecyclerAdapter);
-                                urbanRecyclerAdapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-
-                    else {
-                        Query query;
-                        //if (spec.equals("Electrician") || spec.equals("Barber") || spec.equals("Painter") || spec.equals("Mechanic") || spec.equals("Home Cleaning") || spec.equals("Pest Control") || spec.equals("Massage")) {
-                        if (!spec.equals(null)){
-                            query = reference.orderByChild("Specialization").equalTo(spec);
-                            query.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    urbanmodels = new ArrayList<urbanmodel>();
-                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                        {
-                                            urbanmodel urbanmodel = dataSnapshot1.getValue(urbanmodel.class);
-                                            urbanmodels.add(urbanmodel);
-                                        }
-                                    }
-                                    urbanRecyclerAdapter urbanRecyclerAdapter = new urbanRecyclerAdapter(getActivity(), urbanmodels);
-                                    recyclerView.setAdapter(urbanRecyclerAdapter);
-                                    urbanRecyclerAdapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-                        }
-
-                    }
+                    adapter.chipfilter(spec);
                 }
+
             }
         });
 
 
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                urbanmodels = new ArrayList<urbanmodel>();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    {
-                        urbanmodel urbanmodel = dataSnapshot1.getValue(urbanmodel.class);
-                        urbanmodels.add(urbanmodel);
-                    }
-                }
-                urbanRecyclerAdapter urbanRecyclerAdapter = new urbanRecyclerAdapter(getActivity(), urbanmodels);
+
 
                 searchView.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -225,19 +184,7 @@ public class UrbanFragment extends Fragment {
                     }
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                (getActivity()).runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        urbanRecyclerAdapter.getFilter().filter(s);
-                                        recyclerView.setAdapter(urbanRecyclerAdapter);
-                                    }
-                                });
-                            }
-                        }, 1000);
+                        adapter.getFilter().filter(s);
                     }
 
                     @Override
@@ -245,37 +192,6 @@ public class UrbanFragment extends Fragment {
 
                     }
                 });
-                staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        city=staticAdapter.getItem(i).toString();
-                        timer=new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                (getActivity()).runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        urbanRecyclerAdapter.getCityfilter().filter(city);
-                                        recyclerView.setAdapter(urbanRecyclerAdapter);
-                                    }
-                                });
-                            }
-                        }, 1);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
         return root;

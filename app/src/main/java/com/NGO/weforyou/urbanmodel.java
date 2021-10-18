@@ -1,19 +1,16 @@
 package com.NGO.weforyou;
 
 public class urbanmodel {
-    private String Name, area,phoneNumber,Specialization,latitude,longitude;
+    private String Name, area,phoneNumber,Specialization;
 
     public urbanmodel() {
     }
 
-    public urbanmodel(String Name, String area, String phoneNumber, String Specialization,String latitude,String longitude) {
+    public urbanmodel(String Name, String area, String phoneNumber, String Specialization) {
         this.Name = Name;
         this.area = area;
         this.phoneNumber = phoneNumber;
         this.Specialization = Specialization;
-        this.latitude = latitude;
-        this.longitude = longitude;
-
     }
 
     public String getName() {
@@ -45,18 +42,6 @@ public class urbanmodel {
 
     public void setSpecialization(String Specialization) {
         this.Specialization = Specialization;
-    }
-    public String getLatitude() {
-        return latitude;
-    }
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-    public String getLongitude() {
-        return longitude;
-    }
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
     }
 
 
