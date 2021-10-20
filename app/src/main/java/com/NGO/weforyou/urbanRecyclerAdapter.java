@@ -50,7 +50,6 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull urbanRecyclerAdapter.ViewHolder viewHolder, int position) {
         urbanmodel urbanmodel = urbanmodels.get(position);
-
         viewHolder.name.setText(urbanmodel.getName());
         viewHolder.area.setText("Serving Area : " + urbanmodel.getArea());
         viewHolder.specialization.setText(urbanmodel.getSpecialization());
@@ -63,9 +62,6 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
 
     public Filter getFilter() {
         return UrbanFilter;
-    }
-    public Filter getCityfilter() {
-        return cityfilter;
     }
 
     private Filter UrbanFilter = new Filter() {
@@ -99,42 +95,36 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
             notifyDataSetChanged();
         }
     };
-    private Filter cityfilter=new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<urbanmodel> filteredList=new ArrayList<>();
-            if(charSequence.equals("Select")){
-                filteredList.addAll(urbanmodelList);
-            }
-            else {
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-                for (urbanmodel urbanmodel : urbanmodelList){
-                    if (urbanmodel.getArea().toLowerCase().equals(filterPattern)){
-                        filteredList.add(urbanmodel);
-                    }
-                }
-            }
-            FilterResults results= new FilterResults();
-            results.values=filteredList;
-            return results;
-        }
 
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            urbanmodelList.clear();
-            urbanmodelList.addAll((List)filterResults.values);
+
+    public void filterList(String city,String s) {
+        if(city.equals("Select Taluka") && s.equals("All")){
+            urbanmodels = urbanmodelList;
             notifyDataSetChanged();
         }
-    };
 
-    public void filterList(String city) {
-        if(city.equals("Select Taluka")){
-            urbanmodels = urbanmodelList;
+        if (!city.equals("Select Taluka") && s.equals("All")){
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                if (item.getArea().equals(city)) {
+                    urbanmodels.add(item);
+                }
+            }
+            notifyDataSetChanged();
+        }
+        if (city.equals("Select Taluka") && !s.equals("All")){
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                if (item.getSpecialization().equals(s)) {
+                    urbanmodels.add(item);
+                }
+            }
+            notifyDataSetChanged();
         }
         else {
             urbanmodels = new ArrayList<urbanmodel>();
             for (urbanmodel item : urbanmodelList) {
-                if (item.getArea().equals(city)) {
+                if (item.getArea().equals(city) && item.getSpecialization().equals(s)) {
                     urbanmodels.add(item);
                 }
             }
@@ -142,14 +132,34 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
         notifyDataSetChanged();
     }
 
-    public void chipfilter(String spec) {
-        if(spec.equals("All")){
+    public void chipfilter(String spec, String nestedspinner) {
+        if(spec.equals("All") && nestedspinner.equals("Select Taluka")){
             urbanmodels = urbanmodelList;
+            notifyDataSetChanged();
+        }
+
+        if (spec.equals("All") && !nestedspinner.equals("Select Taluka")){
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                if (item.getArea().equals(nestedspinner)) {
+                    urbanmodels.add(item);
+                }
+            }
+            notifyDataSetChanged();
+        }
+        if (nestedspinner.equals("Select Taluka") && !spec.equals("All")){
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                if (item.getSpecialization().equals(spec)) {
+                    urbanmodels.add(item);
+                }
+            }
+            notifyDataSetChanged();
         }
         else {
             urbanmodels = new ArrayList<urbanmodel>();
             for (urbanmodel item : urbanmodelList) {
-                if (item.getSpecialization().equals(spec)) {
+                if (item.getSpecialization().equals(spec) && item.getArea().equals(nestedspinner)) {
                     urbanmodels.add(item);
                 }
             }

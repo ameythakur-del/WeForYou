@@ -49,7 +49,7 @@ public class UrbanFragment extends Fragment {
     DatabaseReference reference,chipref;
     public List<urbanmodel> urbanmodels;
     ChipGroup chipGroup;
-    String spec,city;
+    String spec,city,nestedspec,nestedspinner;
     Timer timer;
     private Handler mHandler;
     Spinner staticSpinner;
@@ -99,8 +99,12 @@ public class UrbanFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         city=staticAdapter.getItem(i).toString();
+                        Chip chip = chipGroup.findViewById(chipGroup.getCheckedChipId());
+                        if(chip != null) {
+                            nestedspec= chip.getText().toString();
+                        }
                         if (city!=null){
-                            adapter.filterList(city);
+                            adapter.filterList(city,nestedspec);
 
                         }
                     }
@@ -154,42 +158,34 @@ public class UrbanFragment extends Fragment {
         });
 
 
-
-
         chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup chipGroup, int i) {
-
                 Chip chip = chipGroup.findViewById(i);
-
-
                 if(chip != null) {
                     spec = chip.getText().toString();
-                    adapter.chipfilter(spec);
-                    Log.d(TAG, "onCheckedChanged: " + urbanmodels);
+                    nestedspinner= staticSpinner.getSelectedItem().toString();
+                    adapter.chipfilter(spec,nestedspinner);
                 }
             }
         });
 
 
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
 
+            @Override
+            public void afterTextChanged(Editable arg0) {
 
-                searchView.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        adapter.getFilter().filter(s);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable arg0) {
-
-                    }
-                });
+            }
+        });
 
 
         return root;
