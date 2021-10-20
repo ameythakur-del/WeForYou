@@ -29,8 +29,8 @@ import java.util.List;
 
 public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdapter.ViewHolder> {
     Context context;
-    List<urbanmodel> urbanmodels;
-    List<urbanmodel> urbanmodelList;
+    private List<urbanmodel> urbanmodels;
+    private List<urbanmodel> urbanmodelList;
     DatabaseReference reference;
 
     public urbanRecyclerAdapter(Context context, List<urbanmodel> urbanmodels) {
@@ -49,7 +49,7 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull urbanRecyclerAdapter.ViewHolder viewHolder, int position) {
-        final urbanmodel urbanmodel = urbanmodelList.get(position);
+        urbanmodel urbanmodel = urbanmodels.get(position);
 
         viewHolder.name.setText(urbanmodel.getName());
         viewHolder.area.setText("Serving Area : " + urbanmodel.getArea());
@@ -155,7 +155,6 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
             }
         }
         notifyDataSetChanged();
-
     }
 
 

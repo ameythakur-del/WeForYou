@@ -95,8 +95,6 @@ public class UrbanFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
-
-
                 staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -168,8 +166,8 @@ public class UrbanFragment extends Fragment {
                 if(chip != null) {
                     spec = chip.getText().toString();
                     adapter.chipfilter(spec);
+                    Log.d(TAG, "onCheckedChanged: " + urbanmodels);
                 }
-
             }
         });
 
