@@ -90,8 +90,8 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            urbanmodelList.clear();
-            urbanmodelList.addAll((List) results.values);
+            urbanmodels.clear();
+            urbanmodels.addAll((List) results.values);
             notifyDataSetChanged();
         }
     };
@@ -99,11 +99,15 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
 
     public void filterList(String city,String s) {
         if(city.equals("Select Taluka") && s.equals("All")){
-            urbanmodels = urbanmodelList;
+            urbanmodels = new ArrayList<urbanmodel>();
+            for (urbanmodel item : urbanmodelList) {
+                    urbanmodels.add(item);
+            }
             notifyDataSetChanged();
+            Log.d(TAG, "filterList: 1 " + urbanmodels);
         }
 
-        if (!city.equals("Select Taluka") && s.equals("All")){
+        else if (!city.equals("Select Taluka") && s.equals("All")){
             urbanmodels = new ArrayList<urbanmodel>();
             for (urbanmodel item : urbanmodelList) {
                 if (item.getArea().equals(city)) {
@@ -111,8 +115,9 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
                 }
             }
             notifyDataSetChanged();
+            Log.d(TAG, "filterList: 2 " + urbanmodels);
         }
-        if (city.equals("Select Taluka") && !s.equals("All")){
+        else if (city.equals("Select Taluka") && !s.equals("All")){
             urbanmodels = new ArrayList<urbanmodel>();
             for (urbanmodel item : urbanmodelList) {
                 if (item.getSpecialization().equals(s)) {
@@ -120,6 +125,7 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
                 }
             }
             notifyDataSetChanged();
+            Log.d(TAG, "filterList: 3 " + urbanmodels);
         }
         else {
             urbanmodels = new ArrayList<urbanmodel>();
@@ -130,43 +136,8 @@ public class urbanRecyclerAdapter extends RecyclerView.Adapter<urbanRecyclerAdap
             }
         }
         notifyDataSetChanged();
+        Log.d(TAG, "filterList: 4 " + urbanmodels);
     }
-
-    public void chipfilter(String spec, String nestedspinner) {
-        if(spec.equals("All") && nestedspinner.equals("Select Taluka")){
-            urbanmodels = urbanmodelList;
-            notifyDataSetChanged();
-        }
-
-        if (spec.equals("All") && !nestedspinner.equals("Select Taluka")){
-            urbanmodels = new ArrayList<urbanmodel>();
-            for (urbanmodel item : urbanmodelList) {
-                if (item.getArea().equals(nestedspinner)) {
-                    urbanmodels.add(item);
-                }
-            }
-            notifyDataSetChanged();
-        }
-        if (nestedspinner.equals("Select Taluka") && !spec.equals("All")){
-            urbanmodels = new ArrayList<urbanmodel>();
-            for (urbanmodel item : urbanmodelList) {
-                if (item.getSpecialization().equals(spec)) {
-                    urbanmodels.add(item);
-                }
-            }
-            notifyDataSetChanged();
-        }
-        else {
-            urbanmodels = new ArrayList<urbanmodel>();
-            for (urbanmodel item : urbanmodelList) {
-                if (item.getSpecialization().equals(spec) && item.getArea().equals(nestedspinner)) {
-                    urbanmodels.add(item);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView name, area,specialization;

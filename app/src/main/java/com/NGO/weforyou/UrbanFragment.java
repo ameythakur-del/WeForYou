@@ -49,7 +49,7 @@ public class UrbanFragment extends Fragment {
     DatabaseReference reference,chipref;
     public List<urbanmodel> urbanmodels;
     ChipGroup chipGroup;
-    String spec,city,nestedspec,nestedspinner;
+    String spec = "All", city = "Select Taluka";
     Timer timer;
     private Handler mHandler;
     Spinner staticSpinner;
@@ -99,18 +99,77 @@ public class UrbanFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         city=staticAdapter.getItem(i).toString();
-                        Chip chip = chipGroup.findViewById(chipGroup.getCheckedChipId());
-                        if(chip != null) {
-                            nestedspec= chip.getText().toString();
-                        }
                         if (city!=null){
-                            adapter.filterList(city,nestedspec);
-
+                            adapter.filterList(city, spec);
                         }
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+                chipref.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        String newchip=snapshot.getValue().toString();
+                        Chip chip = new Chip(getActivity());
+                        chip.setText(newchip);
+                        chip.setChipBackgroundColorResource(R.color.chipback);
+                        chip.setCheckable(true);
+                        chip.setChipStrokeColorResource(R.color.stroke);
+                        chip.setChipStrokeWidth(2.5F);
+                        chip.setTextColor(getResources().getColor(R.color.black));
+                        chipGroup.addView(chip);
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(ChipGroup chipGroup, int i) {
+                        Chip chip = chipGroup.findViewById(i);
+                        if(chip != null) {
+                            spec = chip.getText().toString();
+                            adapter.filterList(city, spec);
+                        }
+                    }
+                });
+
+
+                searchView.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable arg0) {
 
                     }
                 });
@@ -121,72 +180,6 @@ public class UrbanFragment extends Fragment {
 
             }
         });
-
-        chipref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String newchip=snapshot.getValue().toString();
-                Chip chip = new Chip(getActivity());
-                chip.setText(newchip);
-                chip.setChipBackgroundColorResource(R.color.chipback);
-                chip.setCheckable(true);
-                chip.setChipStrokeColorResource(R.color.stroke);
-                chip.setChipStrokeWidth(2.5F);
-                chip.setTextColor(getResources().getColor(R.color.black));
-                chipGroup.addView(chip);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        chipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ChipGroup chipGroup, int i) {
-                Chip chip = chipGroup.findViewById(i);
-                if(chip != null) {
-                    spec = chip.getText().toString();
-                    nestedspinner= staticSpinner.getSelectedItem().toString();
-                    adapter.chipfilter(spec,nestedspinner);
-                }
-            }
-        });
-
-
-        searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-
-            }
-        });
-
 
         return root;
     }
